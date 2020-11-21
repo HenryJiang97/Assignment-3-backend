@@ -10,12 +10,12 @@ const defaultUrlList = [
 
 // Get all urls in the database
 router.get('/', function(req, res) {
-    // return getAllUrls()
-    // .then(
-    //     (response) => res.status(200).send(response),
-    //     (error) => res.status(404).send("Error getting urls")
-    // );
-    return res.status(200).send(defaultUrlList);
+    return getAllUrls()
+    .then(
+        (response) => res.status(200).send(response),
+        (error) => res.status(404).send("Error getting urls")
+    );
+    // return res.status(200).send(defaultUrlList);
 });
 
 // Get url by long_url
@@ -37,9 +37,37 @@ router.get('/:short_url', function(req, res) {
 });
 
 // Insert new url pair to the db
-// router.post('/', function(req, res) {
+router.post('/', function (req, res) {
+    const urlPair = {
+        long_url: req.body.long_url,
+        short_url: req.body.shor_url,
+    };
+    console.log(urlPair);
 
-// });
+    let urlres = null;
+    insertUrl(urlPair)
+        .then(function (response) {
+            urlres = response;
+            return res.status(200).send(response);
+        }, function (error) {
+            return res.status(500).send("Issue adding url pair");
+        })
+        .then(function () {
+            console.log("insert data successfully!")
+        })
+        .then(function () {
+            console.log(urlres)
+        })
+        .catch(function() {
+            console.error("couldn't insert url pair")
+        })
+
+
+    console.log(urlres)
+
+})
+
+// Put new url pair to the db
 
 
 module.exports = router;
