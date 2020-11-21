@@ -37,9 +37,16 @@ router.get('/:short_url', function(req, res) {
 });
 
 // Insert new url pair to the db
-// router.post('/', function(req, res) {
+router.post('/:url', function(req, res) {
+    return insertUrl(req.params.url)
+        .then(
+            (response) => res.status(200).send(response),
+            (error) => res.status(404).send("Error inserting the url")
+        );
+});
 
-// });
+// Update url in the db
+router.put('/:url')
 
 
 module.exports = router;
