@@ -15,9 +15,6 @@ const mongoDBEndpoint = process.env.MONGODB_URI || 'mongodb://127.0.0.1/url';
 mongoose.connect(mongoDBEndpoint, { useNewUrlParser: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Error connecting to mongo db'));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extended: true}));
-// app.use(cookieParser());
 
 app.use(cors());
 app.use('/api/url', urlRouter);
