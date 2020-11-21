@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const UrlSchema = require('./url.schema').UrlSchema;
-
 const UrlModel = mongoose.model("Url", UrlSchema);
 
 // Insert a new url to the database

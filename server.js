@@ -1,9 +1,10 @@
 const express = require('express');
-const cors = require('cors')
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const pokemonRouter = require('./routes/pokemon')
-const bodyParser = require('body-parser')
+const urlRouter = require('./routes/url');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const { resourceLimits } = require('worker_threads');
 
 const app = express();
 
@@ -19,8 +20,7 @@ db.on('error', console.error.bind(console, 'Error connecting to mongo db'));
 // app.use(cookieParser());
 
 app.use(cors());
-
-app.use('/api/url', pokemonRouter);
+app.use('/api/url', urlRouter);
 
 const port = process.env.PORT || 3000;
 app.listen(port, function() {
