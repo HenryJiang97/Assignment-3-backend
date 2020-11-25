@@ -1,6 +1,6 @@
 const { response } = require('express');
 const express = require('express');
-const { insertUrl, getAllUrls, findUrlByLongUrl, findUrlByShortUrl } = require('../db/url.model');
+const { insertUrl, getAllUrls, findUrlByLongUrl, findUrlByShortUrl, findByShortUrlAndUpdate } = require('../db/url.model');
 const router = express.Router();
 
 const defaultUrlList = [
@@ -19,7 +19,7 @@ router.get('/', function(req, res) {
 });
 
 // Get url by long_url
-router.get('/:long_url', function(req, res) {
+router.get('/long/:long_url', function(req, res) {
     return findUrlByLongUrl(req.params.long_url)
         .then(
             (response) => res.status(200).send(response),
@@ -71,7 +71,38 @@ router.post('/', function (req, res) {
 
 })
 
-// Put new url pair to the db
+// Update long url using short url in the db
+router.put('/:short_url', function (req, res) {
+    // const long_url = req.query.long_url;
+    // const short_url = req.params.short_url;
+
+    const urlPair = {
+        long_url: req.query.long_url,
+        short_url: req.params.short_url,
+    };
+
+    let urlres = null;
+    findByShortUrlAndUpdate(urlPair)
+        .then(function (response) {
+            urlres = response;
+            return res.status(200).send(response);
+        }, function (error) {
+            return res.status(500).send("Issue updating long url by short url");
+        })
+        .then(function () {
+            console.log("update long url successfully!")
+        })
+        .then(function () {
+            console.log(urlres)
+        })
+        .catch(function() {
+            console.error("couldn't update long url")
+        })
+
+
+    console.log(urlres)
+
+})
 
 
 module.exports = router;
