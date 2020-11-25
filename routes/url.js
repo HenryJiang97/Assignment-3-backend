@@ -1,6 +1,6 @@
 const { response } = require('express');
 const express = require('express');
-const { insertUrl, getAllUrls, findUrlByLongUrl, findUrlByShortUrl, findByShortUrlAndUpdate } = require('../db/url.model');
+const { insertUrl, getAllUrls, findUrlByLongUrl, findUrlByShortUrl, findByShortUrlAndUpdate, deleteByLongUrl, deleteByShortUrl } = require('../db/url.model');
 const router = express.Router();
 
 const defaultUrlList = [
@@ -103,6 +103,26 @@ router.put('/:short_url', function (req, res) {
     console.log(urlres)
 
 })
+
+// Delete url pair by long url
+router.delete('/long/:long_url', function(req, res) {
+    return deleteByLongUrl(req.params.long_url)
+        .then(
+            (response) => res.status(200).send(response),
+            (error) => res.status(404).send("No certain long url in the db")
+        );
+});
+
+// Delete url pair by short url
+router.delete('/:short_url', function(req, res) {
+    return deleteByShortUrl(req.params.short_url)
+        .then(
+            (response) => res.status(200).send(response),
+            (error) => res.status(404).send("No certain long url in the db")
+        );
+});
+
+
 
 
 module.exports = router;

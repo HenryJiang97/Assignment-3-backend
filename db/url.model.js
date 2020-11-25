@@ -36,10 +36,22 @@ function findByShortUrlAndUpdate(urlPair) {
     return UrlModel.findOneAndUpdate(query, urlPair, {upsert: true}).exec();
 }
 
+//delete url Pair by short_url value
+function deleteByLongUrl(long_url) {
+    return UrlModel.findOneAndDelete({long_url: long_url}).exec();
+}
+
+//delete url Pair by long_url value
+function deleteByShortUrl(short_url) {
+    return UrlModel.findOneAndDelete({short_url: short_url}).exec();
+}
+
 module.exports = {
     insertUrl, 
     getAllUrls,
     findUrlByLongUrl,
     findUrlByShortUrl,
     findByShortUrlAndUpdate,
+    deleteByLongUrl,
+    deleteByShortUrl,
 }
