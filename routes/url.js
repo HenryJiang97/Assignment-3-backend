@@ -38,10 +38,14 @@ router.get('/:short_url', function(req, res) {
 
 // Insert new url pair to the db
 router.post('/', function (req, res) {
+    console.log("this is req body");
+    console.log(req.body);
+    console.log(req.body.short_url);
     const urlPair = {
         long_url: req.body.long_url,
-        short_url: req.body.shor_url,
+        short_url: req.body.short_url,
     };
+    console.log("this is url Pair");
     console.log(urlPair);
 
     let urlres = null;
