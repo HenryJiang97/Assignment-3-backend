@@ -27,7 +27,7 @@ router.get('/long/:long_url', function(req, res) {
         );
 });
 
-// Get url by short_url
+// Get url by short_url and redirect user
 router.get('/:short_url', function(req, res) {
     return findUrlByShortUrl(req.params.short_url)
     .then(
@@ -121,6 +121,9 @@ router.delete('/:short_url', function(req, res) {
             (error) => res.status(404).send("No certain long url in the db")
         );
 });
+
+
+
 
 
 
