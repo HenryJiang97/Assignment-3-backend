@@ -10,6 +10,8 @@ const {
 const router = express.Router();
 var urlencode = require('urlencode');
 
+const prefix = "https://cs-5620-assignment3-frontend.herokuapp.com/";
+
 
 // Get all urls in the database
 router.get('/', function(req, res) {
@@ -31,7 +33,7 @@ router.get('/:short_url/search', function(req, res) {
 
 // Route to edit page
 router.get('/:short_url/edit', function(req, res) {
-    return res.redirect(301, `http://localhost:3001/edit/?short_url=${req.params.short_url}`)
+    return res.redirect(301, `${prefix}edit/?short_url=${req.params.short_url}`)
     .then(
         (response) => res.status(200).send(response),
         (error) => res.status(404).send("Error getting urls")
@@ -48,7 +50,7 @@ router.get('/:short_url', function(req, res) {
             // console.log("RESPONSE: ", url);
             res.redirect(301, url);
         } else {
-            res.redirect(301, "http://localhost:3001/main");
+            res.redirect(301, `${prefix}main`);
         }
         res.status(200).send(response);
     }, function(error) {
