@@ -17,5 +17,14 @@
     "morgan": "~1.9.1",
     "urlencode": "^1.1.0",
     "uuid": "^8.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.14.0",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.5",
+    "prettier": "^2.2.1"
   }
 }
